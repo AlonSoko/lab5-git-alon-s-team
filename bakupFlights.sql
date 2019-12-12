@@ -2,8 +2,8 @@
 -- Create schema test
 --
 
-#CREATE DATABASE IF NOT EXISTS HL8sVJOtq3;
-USE IVQmsxnr5H;
+#CREATE DATABASE IF NOT EXISTS 7ju1JhwnYF;
+USE 7ju1JhwnYF;
 
 --
 -- Definition of table `flights`

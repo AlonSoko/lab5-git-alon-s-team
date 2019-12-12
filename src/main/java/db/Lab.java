@@ -32,7 +32,7 @@ public class Lab
             stmt = conn.createStatement();
 
             // Updating the price of flight 387 to be 2019
-            PreparedStatement updateFlightPrice = conn.prepareStatement("UPDATE flights "+"SET price = ? WHERE num = ?");
+            PreparedStatement updateFlightPrice = conn.prepareStatement("UPDATE flights SET price = ? WHERE num = ?");
             updateFlightPrice.setInt(1,2019);
             updateFlightPrice.setInt(2,387);
             updateFlightPrice.executeUpdate();
@@ -43,6 +43,7 @@ public class Lab
             int price = rs.getInt("price");
             System.out.format("Updated flight price is: %d\n", price);
 
+            /* part c
             // Updating all flights with distance > 1000km to price+100
             updateStmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 
@@ -54,6 +55,7 @@ public class Lab
                 rs.updateRow();
             }
 
+
             // Updating all flights with price less than 300 usd to price-25
             rs = updateStmt.executeQuery("SELECT num, price FROM "+"flights WHERE price < 300");
             while(rs.next())
@@ -61,6 +63,35 @@ public class Lab
                 price = rs.getInt("price");
                 rs.updateInt("price", price-25);
                 rs.updateRow();
+            }
+            */
+
+            // Updating all flights with distance > 1000km to price+100
+            updateStmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            rs = updateStmt.executeQuery("SELECT num, price FROM "+"flights WHERE distance > 1000");
+
+            while(rs.next())
+            {
+                int num = rs.getInt("num");
+                price = rs.getInt("price");
+
+                updateFlightPrice.setInt(1, price+100);
+                updateFlightPrice.setInt(2,num);
+                updateFlightPrice.executeUpdate();
+            }
+
+
+            // Updating all flights with price less than 300 usd to price-25
+            rs = updateStmt.executeQuery("SELECT num, price FROM "+"flights WHERE price < 300");
+
+            while(rs.next())
+            {
+                int num = rs.getInt("num");
+                price = rs.getInt("price");
+
+                updateFlightPrice.setInt(1, price-25);
+                updateFlightPrice.setInt(2,num);
+                updateFlightPrice.executeUpdate();
             }
 
             // Printing all the flights
