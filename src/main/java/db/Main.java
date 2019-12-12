@@ -15,10 +15,10 @@ public class Main {
 	// update USER, PASS and DB URL according to credentials provided by the website:
 	// https://remotemysql.com/
 	// in future move these hard coded strings into separated config file or even better env variables
-	static private final String DB = "place_for_db_name";
+	static private final String DB = "7ju1JhwnYF";
 	static private final String DB_URL = "jdbc:mysql://remotemysql.com/"+ DB + "?useSSL=false";
-	static private final String USER = "place_for_username";
-	static private final String PASS = "place_for_password";
+	static private final String USER = "7ju1JhwnYF";
+	static private final String PASS = "C61ezhJekY";
 
 	public static void main(String[] args) throws SSLException {
 		Connection conn = null;
@@ -26,12 +26,14 @@ public class Main {
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//System.out.println("success");
 			stmt = conn.createStatement();
 
 			System.out.println("\t============");
 
 			String sql = "SELECT * FROM flights";
 			ResultSet rs = stmt.executeQuery(sql);
+
 			while (rs.next()) {
 				int num = rs.getInt("num");
 				String origin = rs.getString("origin");
